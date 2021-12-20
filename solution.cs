@@ -57,12 +57,12 @@ namespace QuinneMcCluskey_TC02SC
             for (int i = 1; i <= mIndexek[mIndexek.Length - 1]; i *= 2) max++;
             return max;
         }
-        
+
         static void Main(string[] args)
         {
             #region 0. rész
             int vSzam = vSzama();//változók száma
-            int[] mIndexek = mIndex();//minter indexek
+            int[] mIndexek = mIndex();//minterm indexek
             Array.Sort(mIndexek);
             Console.Clear();
             feladat(vSzam, mIndexek);
@@ -155,13 +155,9 @@ namespace QuinneMcCluskey_TC02SC
             }
             int a = 0, b = 0, c=0,d=0, e=0, f=0;
 
-            int[] hatvanyok = new int[max];
-            for (int i = 1; i < max; i*=2) hatvanyok[i] = i;
-            Console.WriteLine("hatvanyok");
-            foreach (int item in hatvanyok)
-            {
-                Console.WriteLine(item);
-            }
+            List<int> hatvanyok = new List<int>();
+            for (int i = 1; i < max*max; i *= 2) hatvanyok.Add(i);
+
             for (int i = a; i < egyesDb.Count-1; i++)
             {
                 b += egyesDb[i];
@@ -169,16 +165,16 @@ namespace QuinneMcCluskey_TC02SC
                 {
                     for (d = nullatolEgyesDbig[i]; d < nullatolEgyesDbig[i+1]; d++)
                     {
-                        for (int dzs = 0; dzs < hatvanyok.Length; dzs++)
+                        if (hatvanyok.Contains(ujSorrendIndexek[d] - ujSorrendIndexek[c]) == true)
                         {
-                            if (ujSorrendIndexek[d] - ujSorrendIndexek[c] == hatvanyok[dzs])
-                            {
-                                Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
-                            }
+                            Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
                         }
                     }
                     d = nullatolEgyesDbig[i];
-                    Console.WriteLine("_____");
+                }
+                if (i < egyesDb.Count -2)
+                {
+                    Console.WriteLine("_____\n");
                 }
                 a = c;
             }
