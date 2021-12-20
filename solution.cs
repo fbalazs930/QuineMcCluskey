@@ -65,6 +65,8 @@ namespace QuinneMcCluskey_TC02SC
             else return false;
         }
 
+        
+
         static void Main(string[] args)
         {
             #region 0. rész
