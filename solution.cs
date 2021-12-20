@@ -154,6 +154,8 @@ namespace QuinneMcCluskey_TC02SC
             List<int> hatvanyok = new List<int>();
             for (int i = 1; i < max*max; i *= 2) hatvanyok.Add(i);
 
+            List<string> parok = new List<string>();
+
             for (int i = a; i < egyesDb.Count-1; i++)
             {
                 b += egyesDb[i];
@@ -163,6 +165,7 @@ namespace QuinneMcCluskey_TC02SC
                     {
                         if (kettoHatvanyaE(hatvanyok, ujSorrendIndexek[d], ujSorrendIndexek[c]))
                         {
+                            parok.Add(ujSorrendIndexek[c] +","+ujSorrendIndexek[d]);
                             Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
                         }
                     }
@@ -171,9 +174,15 @@ namespace QuinneMcCluskey_TC02SC
                 if (i < egyesDb.Count -2)
                 {
                     Console.WriteLine("_____\n");
+                    parok.Add("_____\n");
                 }
                 a = c;
             }
+            #endregion
+
+
+            #region 3. rész
+            
             #endregion
 
             Console.ReadLine();
