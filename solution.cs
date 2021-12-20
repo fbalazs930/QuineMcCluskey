@@ -154,8 +154,10 @@ namespace QuinneMcCluskey_TC02SC
             List<int> hatvanyok = new List<int>();
             for (int i = 1; i < max*max; i *= 2) hatvanyok.Add(i);
 
-            List<string> parok = new List<string>();
+            int parDb = 0;
+            List<string> par = new List<string>();
 
+            List<int> parokIndexSeged = new List<int>();
             for (int i = a; i < egyesDb.Count-1; i++)
             {
                 b += egyesDb[i];
@@ -165,16 +167,18 @@ namespace QuinneMcCluskey_TC02SC
                     {
                         if (kettoHatvanyaE(hatvanyok, ujSorrendIndexek[d], ujSorrendIndexek[c]))
                         {
-                            parok.Add(ujSorrendIndexek[c] +","+ujSorrendIndexek[d]);
+                            par.Add(Convert.ToString(ujSorrendIndexek[c]) +","+ Convert.ToString(ujSorrendIndexek[d]));
                             Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
+                            parDb++;
                         }
                     }
                     d = nullatolEgyesDbig[i];
                 }
+                parokIndexSeged.Add(parDb);
+                parDb = 0;
                 if (i < egyesDb.Count -2)
                 {
                     Console.WriteLine("_____\n");
-                    parok.Add("_____\n");
                 }
                 a = c;
             }
@@ -182,7 +186,32 @@ namespace QuinneMcCluskey_TC02SC
 
 
             #region 3. rész
-            
+            a = 0; b = 0; c = 0; d = 0;
+            Console.WriteLine("\n");
+            string sor = "";
+            int[] checkpointok = new int[parokIndexSeged.Count];
+            sum = 0;
+            for (int i = 0; i < checkpointok.Length; i++)
+            {
+                sum += parokIndexSeged[i];
+                checkpointok[i] = sum;
+            }for (int i = a; i < parokIndexSeged.Count-1; i++)
+            {
+                b += parokIndexSeged[i];
+                for (c = a; c < b; c++)
+                {
+                    for (d = checkpointok[i]; d < checkpointok[i+1]; d++)
+                    {
+                        Console.WriteLine("{0},{1}", par[c], par[d]);
+                    }
+                    d = checkpointok[i];
+                }
+                if (i < parokIndexSeged.Count - 2)
+                {
+                    Console.WriteLine("_____\n");
+                }
+                a = c;
+            }
             #endregion
 
             Console.ReadLine();
