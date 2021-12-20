@@ -188,7 +188,7 @@ namespace QuinneMcCluskey_TC02SC
             #region 3. rész
             a = 0; b = 0; c = 0; d = 0;
             Console.WriteLine("\n");
-            string sor = "";
+            int n1, n2, n3, n4;
             int[] checkpointok = new int[parokIndexSeged.Count];
             sum = 0;
             for (int i = 0; i < checkpointok.Length; i++)
@@ -202,7 +202,14 @@ namespace QuinneMcCluskey_TC02SC
                 {
                     for (d = checkpointok[i]; d < checkpointok[i+1]; d++)
                     {
-                        Console.WriteLine("{0},{1}", par[c], par[d]);
+                        n1 = Convert.ToInt32(par[c].Split(',')[0]);
+                        n2 = Convert.ToInt32(par[c].Split(',')[1]);
+                        n3 = Convert.ToInt32(par[d].Split(',')[0]);
+                        n4 = Convert.ToInt32(par[d].Split(',')[1]);
+                        if (n2-n1 == n4-n3 && n3-n1 == n4-n2)
+                        {
+                            Console.WriteLine("{0},{1}", par[c], par[d]);
+                        }
                     }
                     d = checkpointok[i];
                 }
