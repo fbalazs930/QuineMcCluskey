@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace QuinneMcCluskey_TC02SC
 {
@@ -208,7 +209,10 @@ namespace QuinneMcCluskey_TC02SC
                         n4 = Convert.ToInt32(par[d].Split(',')[1]);
                         if (n2-n1 == n4-n3 && n3-n1 == n4-n2)
                         {
-                            Console.WriteLine("{0},{1}", par[c], par[d]);
+                            if (hatvanyok.Contains(n2 - n1) == true && hatvanyok.Contains(n3 - n1))
+                            {
+                                Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
+                            }
                         }
                     }
                     d = checkpointok[i];
