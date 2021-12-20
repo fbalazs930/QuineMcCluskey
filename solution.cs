@@ -36,14 +36,8 @@ namespace QuinneMcCluskey_TC02SC
             Console.Write(") mi(i=");
             for (int i = 0; i < mIndexek.Length; i++)//formázott kiírás
             {
-                if (i < mIndexek.Length-1)
-                {
-                    Console.Write(mIndexek[i] + ", ");
-                }
-                else
-                {
-                    Console.Write(mIndexek[i] + ")\n");
-                }
+                if (i < mIndexek.Length-1) Console.Write(mIndexek[i] + ", ");
+                else Console.Write(mIndexek[i] + ")\n");
             }
         }
         static int hanyEgyes(string bin)
@@ -59,13 +53,24 @@ namespace QuinneMcCluskey_TC02SC
             return max;
         }
 
-        static bool kettoHatvanyaE(List<int> hatvanyok, int a, int b)
+        static bool kettoHatvanyaE(List<int> hatvanyok, int a)
         {
-            if (hatvanyok.Contains(a - b) == true) return true;
+            if (hatvanyok.Contains(a) == true) return true;
             else return false;
         }
 
-        
+        static int szereples(List<string> blokk, string asd)
+        {
+            int db = 0;
+            foreach (string item in blokk)
+            {
+                if (item.Substring(item.IndexOf('('), item.IndexOf(')') - item.IndexOf('(') + 1) == asd)
+                {
+                    db++;
+                }
+            }
+            return db;
+        }
 
         static void Main(string[] args)
         {
@@ -168,7 +173,7 @@ namespace QuinneMcCluskey_TC02SC
                 {
                     for (d = nullatolEgyesDbig[i]; d < nullatolEgyesDbig[i+1]; d++)
                     {
-                        if (kettoHatvanyaE(hatvanyok, ujSorrendIndexek[d], ujSorrendIndexek[c]))
+                        if (kettoHatvanyaE(hatvanyok, (ujSorrendIndexek[d] - ujSorrendIndexek[c])))
                         {
                             par.Add(Convert.ToString(ujSorrendIndexek[c]) +","+ Convert.ToString(ujSorrendIndexek[d]));
                             Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
@@ -194,11 +199,15 @@ namespace QuinneMcCluskey_TC02SC
             int[] checkpointok = new int[parokIndexSeged.Count];
             sum = 0;
             List<string> kivonas = new List<string>();
+            List<string> blokk1 = new List<string>();
+            List<string> blokk2 = new List<string>();
+            bool b2 = false;
             for (int i = 0; i < checkpointok.Length; i++)
             {
                 sum += parokIndexSeged[i];
                 checkpointok[i] = sum;
-            }for (int i = a; i < parokIndexSeged.Count-1; i++)
+            }
+            for (int i = a; i < parokIndexSeged.Count-1; i++)
             {
                 b += parokIndexSeged[i];
                 for (c = a; c < b; c++)
@@ -217,6 +226,8 @@ namespace QuinneMcCluskey_TC02SC
                                 {
                                     kivonas.Add(n1 + "," + n4);
                                     Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
+                                    if(!b2) blokk1.Add(par[c] + "," + par[d] + " (" + (n2 - n1) + "," + (n3 - n1)+")");
+                                    else blokk2.Add(par[c] + "," + par[d] + " (" + (n2 - n1) + "," + (n3 - n1) + ")");
                                 }
                             }
                         }
@@ -225,8 +236,57 @@ namespace QuinneMcCluskey_TC02SC
                 if (i < parokIndexSeged.Count - 2)
                 {
                     Console.WriteLine("_____\n");
+                    b2 = !b2;
                 }
                 a = c;
+            }
+            string negyesZarojel;
+            int kisA = 97;
+            Console.WriteLine("\n");
+
+            int n1b, n2b, n3b, n4b;
+            for (int i = 0; i < blokk1.Count; i++)
+            {
+                negyesZarojel = blokk1[i].Substring(blokk1[i].IndexOf('('), blokk1[i].IndexOf(')') - blokk1[i].IndexOf('(') + 1);
+                Console.WriteLine(blokk1[i]+" "+ szereples(blokk1, negyesZarojel));
+                if(!blokk2.Contains(negyesZarojel) && szereples(blokk1,negyesZarojel) <=1 )
+                {
+                    Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
+                    kisA++;
+                }
+                else
+                {
+                    for (int j = 0; j < blokk2.Count; j++)
+                    {
+                        if (negyesZarojel == blokk2[j].Substring(blokk2[j].IndexOf('('), blokk2[j].IndexOf(')') - blokk2[j].IndexOf('(') + 1))
+                        {
+                            n1 = Convert.ToInt32(blokk1[i].Split(',')[0]);
+                            n2 = Convert.ToInt32(blokk1[i].Split(',')[1]);
+                            n3 = Convert.ToInt32(blokk1[i].Split(',')[2]);
+                            n4 = Convert.ToInt32(blokk1[i].Split(',')[3]);
+                            //____________________________
+                            n1b = Convert.ToInt32(blokk2[j].Split(',')[0]);
+                            n2b = Convert.ToInt32(blokk2[j].Split(',')[1]);
+                            n3b = Convert.ToInt32(blokk2[j].Split(',')[2]);
+                            n4b = Convert.ToInt32(blokk2[j].Split(',')[3]);
+
+                            if (kettoHatvanyaE(hatvanyok, n1b - n1) && kettoHatvanyaE(hatvanyok, n2b - n2) && kettoHatvanyaE(hatvanyok, n3b - n3) && kettoHatvanyaE(hatvanyok, n4b - n4))
+                            {
+                                Console.WriteLine(blokk1[i]);
+                            }
+                            else
+                            {
+                                Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
+                                kisA++;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine(blokk1[i]);
+                            break;
+                        }
+                    }
+                }
             }
             #endregion
 
