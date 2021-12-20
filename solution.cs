@@ -58,6 +58,12 @@ namespace QuinneMcCluskey_TC02SC
             return max;
         }
 
+        static bool kettoHatvanyaE(List<int> hatvanyok, int a, int b)
+        {
+            if (hatvanyok.Contains(a - b) == true) return true;
+            else return false;
+        }
+
         static void Main(string[] args)
         {
             #region 0. rész
@@ -90,12 +96,6 @@ namespace QuinneMcCluskey_TC02SC
                 for (int j = s.Length - 1; j >= 0; j--) bin[i] += s[j];//visszafele || 110 -> 011 
                 s = "";
             }
-            /*dec | bin kiírás
-             * for (int i = 0; i < mIndexek.Length; i++)
-                {
-                    Console.WriteLine("{0,2} {1}", mIndexek[i], bin[i]);
-                }
-             */
             #endregion
 
             #region 1. rész
@@ -135,16 +135,12 @@ namespace QuinneMcCluskey_TC02SC
 
             #region 2. rész
             Console.WriteLine();
-            int[] ujSorrendIndexek = new int[mIndexek.Length];
+            int[] ujSorrendIndexek = new int[mIndexek.Length];//csportokra bontott csorrendben
             for (int i = 0; i < ujSorrendIndexek.Length; i++)
             {
                 string[] split = ujSorrend.Split(' ');
-                if (split!=null)
-                {
-                    ujSorrendIndexek[i] = Convert.ToInt32(split[i]);
-                }
+                if (split!=null) ujSorrendIndexek[i] = Convert.ToInt32(split[i]);
             }
-
 
             int[] nullatolEgyesDbig = new int[egyesDb.Count];
             int sum = 0;
@@ -153,8 +149,8 @@ namespace QuinneMcCluskey_TC02SC
                 sum += egyesDb[i];
                 nullatolEgyesDbig[i] = sum;
             }
-            int a = 0, b = 0, c=0,d=0, e=0, f=0;
-
+            int a = 0, b = 0, c = 0, d = 0;
+            //a: 
             List<int> hatvanyok = new List<int>();
             for (int i = 1; i < max*max; i *= 2) hatvanyok.Add(i);
 
@@ -165,7 +161,7 @@ namespace QuinneMcCluskey_TC02SC
                 {
                     for (d = nullatolEgyesDbig[i]; d < nullatolEgyesDbig[i+1]; d++)
                     {
-                        if (hatvanyok.Contains(ujSorrendIndexek[d] - ujSorrendIndexek[c]) == true)
+                        if (kettoHatvanyaE(hatvanyok, ujSorrendIndexek[d], ujSorrendIndexek[c]))
                         {
                             Console.WriteLine("{0}, {1} ({2})", ujSorrendIndexek[c], ujSorrendIndexek[d], ujSorrendIndexek[d] - ujSorrendIndexek[c]);
                         }
