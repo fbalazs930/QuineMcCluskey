@@ -245,11 +245,12 @@ namespace QuinneMcCluskey_TC02SC
             Console.WriteLine("\n");
 
             int n1b, n2b, n3b, n4b;
+            string sorA, sorB;
             for (int i = 0; i < blokk1.Count; i++)
             {
                 negyesZarojel = blokk1[i].Substring(blokk1[i].IndexOf('('), blokk1[i].IndexOf(')') - blokk1[i].IndexOf('(') + 1);
-                Console.WriteLine(blokk1[i]+" "+ szereples(blokk1, negyesZarojel));
-                if(!blokk2.Contains(negyesZarojel) && szereples(blokk1,negyesZarojel) <=1 )
+                sorA= blokk1[i].Substring(0, blokk1[i].IndexOf('('));
+                if (!blokk2.Contains(negyesZarojel) && szereples(blokk1,negyesZarojel) == 1 )
                 {
                     Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
                     kisA++;
@@ -258,17 +259,18 @@ namespace QuinneMcCluskey_TC02SC
                 {
                     for (int j = 0; j < blokk2.Count; j++)
                     {
-                        if (negyesZarojel == blokk2[j].Substring(blokk2[j].IndexOf('('), blokk2[j].IndexOf(')') - blokk2[j].IndexOf('(') + 1))
+                        sorB = blokk2[j].Substring(0, blokk2[j].IndexOf('('));
+                        if (blokk2[j].Contains(negyesZarojel))
                         {
-                            n1 = Convert.ToInt32(blokk1[i].Split(',')[0]);
-                            n2 = Convert.ToInt32(blokk1[i].Split(',')[1]);
-                            n3 = Convert.ToInt32(blokk1[i].Split(',')[2]);
-                            n4 = Convert.ToInt32(blokk1[i].Split(',')[3]);
+                            n1 = Convert.ToInt32(sorA.Split(',')[0]);
+                            n2 = Convert.ToInt32(sorA.Split(',')[1]);
+                            n3 = Convert.ToInt32(sorA.Split(',')[2]);
+                            n4 = Convert.ToInt32(sorA.Split(',')[3]);
                             //____________________________
-                            n1b = Convert.ToInt32(blokk2[j].Split(',')[0]);
-                            n2b = Convert.ToInt32(blokk2[j].Split(',')[1]);
-                            n3b = Convert.ToInt32(blokk2[j].Split(',')[2]);
-                            n4b = Convert.ToInt32(blokk2[j].Split(',')[3]);
+                            n1b = Convert.ToInt32(sorB.Split(',')[0]);
+                            n2b = Convert.ToInt32(sorB.Split(',')[1]);
+                            n3b = Convert.ToInt32(sorB.Split(',')[2]);
+                            n4b = Convert.ToInt32(sorB.Split(',')[3]);
 
                             if (kettoHatvanyaE(hatvanyok, n1b - n1) && kettoHatvanyaE(hatvanyok, n2b - n2) && kettoHatvanyaE(hatvanyok, n3b - n3) && kettoHatvanyaE(hatvanyok, n4b - n4))
                             {
@@ -282,7 +284,8 @@ namespace QuinneMcCluskey_TC02SC
                         }
                         else
                         {
-                            Console.WriteLine(blokk1[i]);
+                            Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
+                            kisA++;
                             break;
                         }
                     }
