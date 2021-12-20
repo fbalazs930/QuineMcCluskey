@@ -173,7 +173,6 @@ namespace QuinneMcCluskey_TC02SC
                             parDb++;
                         }
                     }
-                    d = nullatolEgyesDbig[i];
                 }
                 parokIndexSeged.Add(parDb);
                 parDb = 0;
@@ -187,11 +186,12 @@ namespace QuinneMcCluskey_TC02SC
 
 
             #region 3. rész
-            a = 0; b = 0; c = 0; d = 0;
+            a = 0; b = 0;
             Console.WriteLine("\n");
             int n1, n2, n3, n4;
             int[] checkpointok = new int[parokIndexSeged.Count];
             sum = 0;
+            List<string> kivonas = new List<string>();
             for (int i = 0; i < checkpointok.Length; i++)
             {
                 sum += parokIndexSeged[i];
@@ -209,13 +209,16 @@ namespace QuinneMcCluskey_TC02SC
                         n4 = Convert.ToInt32(par[d].Split(',')[1]);
                         if (n2-n1 == n4-n3 && n3-n1 == n4-n2)
                         {
-                            if (hatvanyok.Contains(n2 - n1) == true && hatvanyok.Contains(n3 - n1))
+                            if (hatvanyok.Contains(n2 - n1) && hatvanyok.Contains(n3 - n1) && n3 > n1)
                             {
-                                Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
+                                if (!kivonas.Contains(n1 + "," + n4))
+                                {
+                                    kivonas.Add(n1 + "," + n4);
+                                    Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
+                                }
                             }
                         }
                     }
-                    d = checkpointok[i];
                 }
                 if (i < parokIndexSeged.Count - 2)
                 {
