@@ -59,18 +59,6 @@ namespace QuinneMcCluskey_TC02SC
             else return false;
         }
 
-        static int szereples(List<string> blokk, string asd)
-        {
-            int db = 0;
-            foreach (string item in blokk)
-            {
-                if (item.Substring(item.IndexOf('('), item.IndexOf(')') - item.IndexOf('(') + 1) == asd)
-                {
-                    db++;
-                }
-            }
-            return db;
-        }
 
         static void Main(string[] args)
         {
@@ -240,6 +228,7 @@ namespace QuinneMcCluskey_TC02SC
                 }
                 a = c;
             }
+            Console.WriteLine();
             string negyesZarojel;
             int kisA = 97;
 
@@ -288,16 +277,20 @@ namespace QuinneMcCluskey_TC02SC
                             {
                                 Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
                                 kisA++;
+                                break;
                             }
                         }
                     }
                 }
                 match = false;
             }
-            Console.WriteLine("_____\n");
-            foreach (string item in blokk2)
+            if (blokk2.Count>0)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("_____\n");
+                foreach (string item in blokk2)
+                {
+                    Console.WriteLine(item);
+                }
             }
             #endregion
 
