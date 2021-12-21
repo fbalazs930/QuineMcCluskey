@@ -246,27 +246,36 @@ namespace QuinneMcCluskey_TC02SC
 
             int n1b, n2b, n3b, n4b;
             string sorA, sorB;
+            bool match = false;
             for (int i = 0; i < blokk1.Count; i++)
             {
                 negyesZarojel = blokk1[i].Substring(blokk1[i].IndexOf('('), blokk1[i].IndexOf(')') - blokk1[i].IndexOf('(') + 1);
-                sorA= blokk1[i].Substring(0, blokk1[i].IndexOf('('));
-                if (!blokk2.Contains(negyesZarojel) && szereples(blokk1,negyesZarojel) == 1 )
+
+                for (int j = 0; j < blokk2.Count; j++)
+                {
+                    if (blokk2[j].Contains(negyesZarojel))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+                if (!match)
                 {
                     Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
                     kisA++;
                 }
                 else
                 {
+                    sorA = blokk1[i].Substring(0, blokk1[i].IndexOf('('));
+                    n1 = Convert.ToInt32(sorA.Split(',')[0]);
+                    n2 = Convert.ToInt32(sorA.Split(',')[1]);
+                    n3 = Convert.ToInt32(sorA.Split(',')[2]);
+                    n4 = Convert.ToInt32(sorA.Split(',')[3]);
                     for (int j = 0; j < blokk2.Count; j++)
                     {
                         sorB = blokk2[j].Substring(0, blokk2[j].IndexOf('('));
                         if (blokk2[j].Contains(negyesZarojel))
                         {
-                            n1 = Convert.ToInt32(sorA.Split(',')[0]);
-                            n2 = Convert.ToInt32(sorA.Split(',')[1]);
-                            n3 = Convert.ToInt32(sorA.Split(',')[2]);
-                            n4 = Convert.ToInt32(sorA.Split(',')[3]);
-                            //____________________________
                             n1b = Convert.ToInt32(sorB.Split(',')[0]);
                             n2b = Convert.ToInt32(sorB.Split(',')[1]);
                             n3b = Convert.ToInt32(sorB.Split(',')[2]);
@@ -282,14 +291,9 @@ namespace QuinneMcCluskey_TC02SC
                                 kisA++;
                             }
                         }
-                        else
-                        {
-                            Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
-                            kisA++;
-                            break;
-                        }
                     }
                 }
+                match = false;
             }
             #endregion
 
