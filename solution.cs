@@ -18,11 +18,11 @@ namespace QuinneMcCluskey_TC02SC
         static int[] mIndex()
         {
             Console.WriteLine("Adja meg a minterm indexeket vesszőkkel elválasztva:");
-            string[] indexek = Console.ReadLine().Split(',');
+            string[] indexek = Console.ReadLine().Trim(',').Split(',');
             int[] ind = new int[indexek.Length];
             for (int i = 0; i < indexek.Length; i++)
             {
-                ind[i] = Convert.ToInt32(indexek[i]);
+                if (indexek[i]!="0") ind[i] = Convert.ToInt32(indexek[i]);
             }
             return ind;
         }
@@ -229,12 +229,14 @@ namespace QuinneMcCluskey_TC02SC
                 a = c;
             }
             Console.WriteLine();
-            string negyesZarojel;
+            string negyesZarojel,s1="",s2="";
             int kisA = 97;
 
             int n1b, n2b, n3b, n4b;
             string sorA, sorB;
             bool match = false;
+            List<string> kellhet = new List<string>();
+            string f = "";
             for (int i = 0; i < blokk1.Count; i++)
             {
                 negyesZarojel = blokk1[i].Substring(blokk1[i].IndexOf('('), blokk1[i].IndexOf(')') - blokk1[i].IndexOf('(') + 1);
@@ -250,6 +252,7 @@ namespace QuinneMcCluskey_TC02SC
                 if (!match)
                 {
                     Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
+                    kellhet.Add(Convert.ToChar(kisA) + ": " + blokk1[i]);
                     kisA++;
                 }
                 else
@@ -276,8 +279,18 @@ namespace QuinneMcCluskey_TC02SC
                             else
                             {
                                 Console.WriteLine(blokk1[i] + " " + Convert.ToChar(kisA));
+                                kellhet.Add(Convert.ToChar(kisA)+": "+blokk1[i]);
                                 kisA++;
                                 break;
+                            }
+                            if (Convert.ToChar(kisA+1)=='f')
+                            {
+                                s1 = (n2 - n1) + ", " + (n3 - n1) + ", " + (n1b - n1);
+                                s1 = (n2b - n1b) + ", " + (n3b - n1b) + ", " + (n4b - n4);
+                                if (kettoHatvanyaE(hatvanyok, n2 - n1) && kettoHatvanyaE(hatvanyok, n3 - n1) && kettoHatvanyaE(hatvanyok, n1b - n1) && kettoHatvanyaE(hatvanyok, n2b - n1b) && kettoHatvanyaE(hatvanyok, n3b - n1b) && kettoHatvanyaE(hatvanyok, n4b - n4))
+                                {
+                                    f=Convert.ToChar(kisA+1) + ": " + sorA.Trim(' ') + "," + sorB.Trim(' ')+" ("+ (n1b - n1)+","+ (n2 - n1) + ","+ (n3 - n1) + ")";
+                                }
                             }
                         }
                     }
@@ -292,6 +305,12 @@ namespace QuinneMcCluskey_TC02SC
                     Console.WriteLine(item);
                 }
             }
+            Console.WriteLine();
+            foreach (string item in kellhet)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(f);
             #endregion
 
             Console.ReadLine();
