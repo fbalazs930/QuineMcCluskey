@@ -225,7 +225,7 @@ namespace QuinneMcCluskey_TC02SC
                                 if (!kivonas.Contains(n1 + "," + n4))
                                 {
                                     kivonas.Add(n1 + "," + n4);
-                                    Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
+                                    //Console.WriteLine("{0},{1} ({2},{3})", par[c], par[d], n2 - n1, n3 - n1);
                                     if(!b2) blokk1.Add(par[c] + "," + par[d] + " (" + (n2 - n1) + "," + (n3 - n1)+")");
                                     else blokk2.Add(par[c] + "," + par[d] + " (" + (n2 - n1) + "," + (n3 - n1) + ")");
                                 }
@@ -235,14 +235,13 @@ namespace QuinneMcCluskey_TC02SC
                 }
                 if (i < parokIndexSeged.Count - 2)
                 {
-                    Console.WriteLine("_____\n");
+                    //Console.WriteLine("_____\n");
                     b2 = !b2;
                 }
                 a = c;
             }
             string negyesZarojel;
             int kisA = 97;
-            Console.WriteLine("\n");
 
             int n1b, n2b, n3b, n4b;
             string sorA, sorB;
@@ -294,6 +293,11 @@ namespace QuinneMcCluskey_TC02SC
                     }
                 }
                 match = false;
+            }
+            Console.WriteLine("_____\n");
+            foreach (string item in blokk2)
+            {
+                Console.WriteLine(item);
             }
             #endregion
 
